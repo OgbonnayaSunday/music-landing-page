@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRACK LIST</title>
+    <!-- Font Awesome for service icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="backgroundImg">
+        <div class="overlayImg">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="./index.html"><i id="siteLogo" class="fa-brands fa-airbnb"></i></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup" ml>
+                    <div class="navbar-nav ml-auto">
+                        <a class="nav-item nav-link active" href="./index.html">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href="#tracklist">Tracks</a>
+                        <a class="nav-item nav-link" href="#uploadContainer">Upload</a>
+                        <a class="nav-item nav-link" href="#globalPlayer">Player</a>
+                    </div>
+                </div>
+            </nav>
+            <section>
+                <h2>TRACK LIST</h2>
+                <!-- upload local audio files and playlist controls -->
+                <div id="uploadContainer">
+                    <label for="fileInput" class="upload-label">Add audio files:</label>
+                    <input type="file" id="fileInput" accept="audio/*" multiple>
+                    <button id="savePlaylistBtn">Export playlist</button>
+                    <button id="clearPlaylistBtn">Clear playlist</button>
+                    <button id="importPlaylistBtn">Import playlist</button>
+                    <input type="file" id="importInput" accept="application/json" style="display:none">
+                    <span id="uploadStatus"></span>
+                    <!-- hidden global image picker for setting covers -->
+                    <input type="file" id="coverPicker" accept="image/*" style="display:none">
+                </div>
+                <ul id="tracklist">
+                </ul>
+                <div id="globalPlayer" class="global-player hidden">
+                    <div class="globalPlayerOverlay">
+                        <div class="player-left">
+                            <div>
+                                <img id="playerCover" class="player-cover hidden" src="" alt="cover" />
+                                <div id="playerTitle">Title</div>
+                                <div id="playerArtist">Artist</div>
+                                <button id="prevBtn">⏮</button>
+                                <button id="global">▶</button>
+                                <button id="nextBtn">⏭</button>
+                            </div>
+                        </div>
+                        <div class="player-center">
+                            <div id="timer">
+                                <span id="currentTime">0:00</span>
+                                <input type="range" id="progressBar" value="0" min="0" max="100">
+                                <span id="totalTime">0:00</span>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://unpkg.com/howler@2.2.4/dist/howler.min.js"></script>
+    <script>
+        if (typeof Howl === 'undefined') {
+            console.error('Howler failed to load from CDN; check network or extensions.');
+        }
+    </script>
+    <script>
+        // Lightweight fallback implementing minimal Howl API used by the player.
+        if (typeof Howl === 'undefined') {
+            console.warn('Howler unavailable — using fallback Howl implementation');
+            (function () {
+                function MiniHowl(opts) {
+                    this._opts = opts || {};
+                    this._src = Array.isArray(this._opts.src) ? this._opts.src[0] : this._opts.src || '';
+                    this._audio = new Audio();
+                    this._audio.src = this._src;
+                    this._audio.preload = 'auto';
+                    var self = this;
+                    this._audio.addEventListener('canplay', function () {
+                        if (typeof self._opts.onload === 'function') self._opts.onload();
+                    });
+                    this._audio.addEventListener('play', function () {
+                        if (typeof self._opts.onplay === 'function') self._opts.onplay();
+                    });
+                    this._audio.addEventListener('ended', function () {
+                        if (typeof self._opts.onend === 'function') self._opts.onend();
+                    });
+                    this._audio.addEventListener('error', function (e) {
+                        if (typeof self._opts.onloaderror === 'function') self._opts.onloaderror(null, e);
+                    });
+                }
+
+                MiniHowl.prototype.play = function () {
+                    var p = this._audio.play();
+                    if (p && typeof p.catch === 'function') {
+                        p.catch(function (err) {
+                            if (typeof this._opts !== 'undefined' && typeof this._opts.onplayerror === 'function') {
+                                this._opts.onplayerror(null, err);
+                            }
+                        }.bind(this));
+                    }
+                    return this;
+                };
+
+                MiniHowl.prototype.pause = function () {
+                    this._audio.pause();
+                };
+
+                MiniHowl.prototype.stop = function () {
+                    this._audio.pause();
+                    try { this._audio.currentTime = 0; } catch (e) {}
+                };
+
+                MiniHowl.prototype.seek = function (val) {
+                    if (typeof val === 'undefined') return this._audio.currentTime || 0;
+                    this._audio.currentTime = val;
+                };
+
+                MiniHowl.prototype.duration = function () {
+                    return isFinite(this._audio.duration) ? this._audio.duration : 0;
+                };
+
+                MiniHowl.prototype.playing = function () {
+                    return !!(this._audio && !this._audio.paused && !this._audio.ended);
+                };
+
+                window.Howl = MiniHowl;
+                window.Howler = window.Howler || {};
+            })();
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="js/data.js"></script>
+    <script src="js/player.js"></script>
+    <!-- metadata extraction library -->
+    <script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.5/dist/jsmediatags.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

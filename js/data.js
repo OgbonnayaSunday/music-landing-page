@@ -1,0 +1,55 @@
+const tracks = [
+  {
+    id: 1,
+    title: "the small Things",
+    artist: "Conro",
+    duration: "3:35",
+    preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    spotify: "https://open.spotify.com/track/ID1",
+    appleMusic: "https://music.apple.com/track/ID1",
+    youtube: "https://www.youtube.com/watch?v=ID1",
+    },
+    {
+    id: 2,
+    title: "Without Your Love",
+    artist: "Conro",
+    duration: "3:09",
+    preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    spotify: "https://open.spotify.com/track/ID2",
+    appleMusic: "https://music.apple.com/track/ID2",
+    youtube: "https://www.youtube.com/watch?v=ID2", 
+    },
+    {
+    id: 3,  
+    title: "All Night",
+    artist: "Conro",
+    duration: "3:15",   
+    preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    spotify: "https://open.spotify.com/track/ID3",
+    appleMusic: "https://music.apple.com/track/ID3",
+    youtube: "https://www.youtube.com/watch?v=ID3",     
+    },
+    {
+    id: 4,
+    title: "Lay Low",
+    artist: "Conro",
+    duration: "3:45",
+    preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+    spotify: "https://open.spotify.com/track/ID4",
+    appleMusic: "https://music.apple.com/track/ID4",
+    youtube: "https://www.youtube.com/watch?v=ID4",
+    },
+    {
+    id: 5,
+    title: "I Wanna Know",
+    artist: "Conro",
+    duration: "3:20",
+    preview: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",  
+    spotify: "https://open.spotify.com/track/ID5",
+    appleMusic: "https://music.apple.com/track/ID5",
+    youtube: "https://www.youtube.com/watch?v=ID5",
+    },
+];
+
+// Expose tracks as a global so non-module scripts can access it
+window.tracks = tracks;
