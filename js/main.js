@@ -251,9 +251,9 @@ function renderTracks() {
             li.appendChild(img);
         } else {
             const placeholder = document.createElement('div');
-            placeholder.style.width = '48px';
-            placeholder.style.height = '48px';
-            placeholder.style.marginRight = '8px';
+            // placeholder.style.width = '80%';
+            // placeholder.style.height = '48px';
+            placeholder.style.margin = '8px 0px';
             li.appendChild(placeholder);
         }
 

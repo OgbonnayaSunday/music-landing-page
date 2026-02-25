@@ -12,8 +12,7 @@
     margin: 0px auto;
     color: white;
     min-height: 100vh;
-    padding-left: 12px;
-    padding-right: 12px;
+
 }
 
 .backgroundImg .overlayImg {
@@ -21,14 +20,15 @@
 }
 
 .navbar {
-    background: url("../assets/images/solar\ 6.jpg");
-    position: fixed;
+    background-color: #00000052;
+    position: fixed !important;
     margin: 0px auto;
     max-width: 976px;
-    bottom: 0;
+    bottom: 1;
     left: 0;
     right: 0;
-    border-bottom: 1px solid #222;
+    top: 0;
+    border-bottom: 2px solid #222;
     z-index: 1000;
 }
 
@@ -45,7 +45,8 @@
 
 h2 {
     text-align: center;
-    padding: 20px 0px;
+    margin: 20px 0px;
+    padding-top: 90px;
 }
 
 #tracklist {
@@ -53,6 +54,14 @@ h2 {
     max-height: calc(100vh - 130px); /* leave room for header/player */
     overflow-y: auto;
     list-style: none;
+    width: 90%;
+    margin: 0px auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#tracklist::-webkit-scrollbar {
+    display: none;
 }
 
 /* upload form styling */
@@ -97,7 +106,8 @@ h2 {
     padding: 8px 0;
     flex-wrap: wrap;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 30px;
+    margin: 15px 0px;
 }
 
 /* player cover */
@@ -110,6 +120,7 @@ h2 {
 }
 
 .hidden { display: none; }
+
 
 /* drag handle */
 .drag-handle {
@@ -372,24 +383,30 @@ h2 {
     text-overflow: ellipsis;
 }
 
-/* mobile hamburger */
-.nav-toggle {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-}
 
 /* Tablet styles (720px and below) */
 @media (max-width: 720px) {
-    .nav-toggle { display: block; }
-    .site-nav .nav-links { display: none; flex-direction: column; gap: 6px; padding: 10px 0; }
-    .site-nav .nav-links.active { display: flex; }
-    .site-nav { width: 92%; left: 50%; transform: translateX(-50%); }
+   
     section { width: 92%; padding-top: 64px; padding-bottom: 160px; }
     
+    
+    h2 {
+        text-align: center;
+        margin: 20px 0px;
+        padding-top: 30px;
+    }
+
+    #uploadContainer {
+        padding: 8px 10px;
+        width: 85%;
+        margin: 0px auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #savePlaylistBtn, #clearPlaylistBtn, #importPlaylistBtn { width: 100%; }
+
     /* Player responsive */
     .global-player { min-height: 140px; flex-direction: column; gap: 8px; padding: 10px 8px; }
     .player-left { flex-basis: 100%; width: 100%; border: 1px solid #444; padding: 8px; }
@@ -416,14 +433,15 @@ h2 {
     .links-editor { margin-top: 6px; padding: 6px; gap: 4px; }
     .links-row { flex-direction: column; gap: 4px; }
     .link-input { padding: 4px 6px; font-size: 12px; }
+    
 }
 
 /* Mobile styles (420px and below) */
 @media (max-width: 420px) {
-    .site-nav .brand img { height: 26px; }
-    .site-nav .nav-inner { padding: 8px 12px; }
     section { padding-left: 8px; padding-right: 8px; padding-bottom: 200px; }
     
+    #savePlaylistBtn, #clearPlaylistBtn, #importPlaylistBtn { width: 100%; margin: 6px 0px; }
+
     /* Player mobile */
     .global-player { min-height: 160px; padding: 8px 6px; gap: 6px; }
     .player-left { padding: 6px; }
@@ -442,6 +460,7 @@ h2 {
         padding: 4px 6px; 
         font-size: 11px; 
         margin: 2px 2px 0 0;
+        width: 100%;
     }
     .service-links { gap: 3px; margin: 4px 0 0 0; }
     .service-link { width: 22px; height: 22px; }
