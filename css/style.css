@@ -7,16 +7,16 @@
 
 .backgroundImg {
     background: url("../assets/images/solar\ 6.jpg");
+    background-size: cover;
     width: 100%;
     max-width: 1000px;
     margin: 0px auto;
     color: white;
-    min-height: 100vh;
-
 }
 
 .backgroundImg .overlayImg {
     background-color: #000000c4;
+    /* padding: 20px 0px; */
 }
 
 .navbar {
@@ -398,11 +398,16 @@ h2 {
 
     #uploadContainer {
         padding: 8px 10px;
-        width: 85%;
-        margin: 0px auto;
+        width: 100%;
+        margin-top: 30px;
         display: grid;
         grid-template-columns: 1fr;
         gap: 10px;
+        background-color: #323238;
+        border-radius: 7px;
+        text-align: center;
+        position: relative;
+        left: 12px;
     }
 
     #savePlaylistBtn, #clearPlaylistBtn, #importPlaylistBtn { width: 100%; }
@@ -419,7 +424,7 @@ h2 {
     #timer { width: 100%; font-size: 12px; }
     
     /* Track list responsive */
-    #tracklist { padding: 8px 0; }
+    #tracklist { padding: 8px 0; position: relative; left: 12px;}
     .track-item { font-size: 13px; gap: 6px; padding: 6px; }
     .track-cover { width: 40px; height: 40px; margin-right: 4px; }
     .playBtn, .removeBtn, .set-cover-btn, .remove-cover-btn { 
