@@ -208,7 +208,7 @@ async function loadStoredTracks() {
         if (patched) await saveStoredTracks();
     } else {
         // nothing could be loaded from storage
-        if (uploadStatusEl) uploadStatusEl.textContent = 'No stored playlist found (storage may be disabled).';
+        if (uploadStatusEl) uploadStatusEl.textContent = '';
         console.warn('loadStoredTracks: no stored playlist data available');
         window.tracks = window.tracks || [];
     }
